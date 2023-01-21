@@ -38,10 +38,15 @@ public class BotService implements UpdatesListener {
     private void processUpdate(Update update) {
         String userMessage = update.message().text();
         Long chatId = update.message().chat().id();
-        if (userMessage.equals("/start")){
-            this.telegramBot.execute(new SendMessage(chatId,"Привет! Я могу я могу напомнить о событии"));
-        }else {
-            this.notificationService.processNotification(chatId,userMessage);
+        if (userMessage.equals("/start")) {
+            this.telegramBot.execute(new SendMessage(chatId, "Hi, i can remind you about the event"));
+        } else {
+            if (this.notificationService.processNotification(chatId, userMessage)){
+            this.telegramBot.execute(new SendMessage(chatId, "Reminder created"));
+            } else {
+                this.telegramBot.execute(new SendMessage
+                        (chatId, "I receive messages in the format '01.01.2022 20:00 Сделать домашнюю работу'"));
+            }
         }
     }
 }
