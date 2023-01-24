@@ -23,7 +23,6 @@ public class BotService implements UpdatesListener {
     public BotService(TelegramBot telegramBot, NotificationService notificationService) {
         this.telegramBot = telegramBot;
         this.notificationService = notificationService;
-        this.telegramBot.setUpdatesListener(this);
     }
 
     @Override
